@@ -1,0 +1,26 @@
+---
+- name: generate random password
+  set_fact:
+      ds_pass: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
+
+- name: print app details sec
+  debug:
+    msg: "{{ app.project_name }} {{ app.dns_name }} : {{ app_group_id }}"
+
+
+- name: Add resourcces to context file
+  blockinfile:
+    path: /tmp/{{ app.dns_name }}/context.xml
+    insertbefore: "^</Context>"
+    marker_begin: "<!-- Resource section for JNDI {{ item.jndi }}"
+    block: |2
+
+      <Resource name="{{ item.jndi }}" auth="Container"
+          type="java.sql.DataSource"
+          maxActive="100" maxidle="30" maxWait="100"
+          username="{{ item.username }}" password="ENC({{ ds_pass }})" 
+          factory="com.Factory"
+          driverClassName="{{ item.driver }}"
+          url="jdbc:oracle:thin@{{ item.fqdn }}:ds.port:{{ item.tns }}"/>
+ 
+

@@ -1,0 +1,23 @@
+app_group_id: com.app.com
+app:
+  project_name: sinapp
+  dns_name: ice-app
+  context: sinapp_context
+
+
+datastore:
+  - jndi: "jdbc/app1"
+    username: user1
+    password: 
+    driver: oracle
+    fqdn: app1.net
+    tns: WF1
+    port: 1520
+  - jndi: "jdbc/sybase"
+    username: user2
+    password:
+    driver: sybase
+    fqdn: app2.net
+    tns: WF2
+    port: 21500
+

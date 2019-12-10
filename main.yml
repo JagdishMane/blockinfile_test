@@ -1,0 +1,18 @@
+---
+- name: tomcat config
+  hosts: localhost
+  vars_files:
+    - group_vars/ice-biz-sin-dev.yml 
+  tasks:
+  - name: print app details
+    debug:
+      msg: "{{ app.project_name }} {{ app.dns_name }} : {{ app_group_id }}"
+
+
+  - name: Copy context template
+    template: "src=localhost/context.xml.j2 dest=/tmp/{{ app.dns_name }}/context.xml"
+
+  - name: add resources to context xml file
+    include_tasks: config_app.yml
+    with_items:
+      - "{{ datastore }}"
