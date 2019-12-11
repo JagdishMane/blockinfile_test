@@ -12,7 +12,8 @@
   blockinfile:
     path: /tmp/{{ app.dns_name }}/context.xml
     insertbefore: "^</Context>"
-    marker_begin: "<!-- Resource section for JNDI {{ item.jndi }}"
+    #marker_begin: "<!-- Resource section for JNDI {{ item.jndi }}"
+    marker: ""
     block: |2
 
       <Resource name="{{ item.jndi }}" auth="Container"
