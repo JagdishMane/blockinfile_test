@@ -20,4 +20,11 @@ datastore:
     fqdn: app2.net
     tns: WF2
     port: 21500
+  - jndi: "jdbc/sybase1"
+    username: user3
+    password:
+    driver: sybase3
+    fqdn: app3.net
+    tns: WF3
+    port: 21500
 
