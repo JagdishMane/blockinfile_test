@@ -1,0 +1,16 @@
+---
+- name: Expect and respose
+  hosts: centos
+  tasks:
+  - name: run script
+    expect:
+      command: /home/ansible/interactive.sh
+      responses:
+        'Enter yes to continue': "y"
+        "Enter the path": "/tmp"
+        "Type the Option": "2"
+    register: output
+
+  - name: debug
+    debug:
+      msg: "{{ output.stdout_lines }}"
